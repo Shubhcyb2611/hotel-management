@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 type Room = {
   floor: number;
@@ -53,10 +53,6 @@ export default function App() {
     return acc;
   }, {});
 
-  const getRoomStatus = (room: Room) => {
-    if (!room.isAvailable) return "booked";
-    return "available";
-  };
 
   return (
     <div className="app">
