@@ -1,0 +1,76 @@
+
+---
+
+# 🟢 2️⃣ BACKEND OPENAPI SPEC (`openapi.yaml`)
+
+👉 **backend/openapi.yaml**
+
+```yaml
+openapi: 3.0.1
+info:
+  title: Hotel Room Reservation API
+  description: APIs for managing hotel rooms and bookings
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /hotel/rooms:
+    get:
+      summary: Get all rooms
+      responses:
+        200:
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+
+  /hotel/book:
+    post:
+      summary: Book rooms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        200:
+          description: Booking successful
+
+  /hotel/reset:
+    post:
+      summary: Reset all rooms
+      responses:
+        200:
+          description: Reset completed
+
+  /hotel/randomize:
+    post:
+      summary: Randomize occupancy
+      responses:
+        200:
+          description: Randomization completed
+
+components:
+  schemas:
+    Room:
+      type: object
+      properties:
+        floor:
+          type: integer
+        roomNumber:
+          type: integer
+        position:
+          type: integer
+        isAvailable:
+          type: boolean

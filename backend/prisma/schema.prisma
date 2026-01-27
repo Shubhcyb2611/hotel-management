@@ -3,14 +3,30 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
+/// Represents a single room in the hotel
 model Room {
-  roomNumber  Int     @id
-  floor       Int
-  position    Int
-  isAvailable Boolean @default(true)
+  /// Unique ID for the room
+  id           Int     @id @default(autoincrement())
+
+  /// Floor number (1–10)
+  floor        Int
+
+  /// Actual room number (e.g. 101, 203, 1005)
+  roomNumber   Int     @unique
+
+  /// Position from left to right on the floor (used for travel time)
+  position     Int
+
+  /// Availability status
+  isAvailable  Boolean @default(true)
+
+  /// Timestamp when room record was created
+  createdAt   DateTime @default(now())
+
+  /// Timestamp when room record was last updated
+  updatedAt   DateTime @updatedAt
 }
