@@ -1,12 +1,5 @@
-
----
-
-# 🟢 2️⃣ BACKEND OPENAPI SPEC (`openapi.yaml`)
-
-👉 **backend/openapi.yaml**
-
-```yaml
 openapi: 3.0.1
+
 info:
   title: Hotel Room Reservation API
   description: APIs for managing hotel rooms and bookings
@@ -20,14 +13,14 @@ paths:
     get:
       summary: Get all rooms
       responses:
-        200:
+        "200":
           description: List of rooms
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Room'
+                  $ref: "#/components/schemas/Room"
 
   /hotel/book:
     post:
@@ -44,21 +37,21 @@ paths:
                   minimum: 1
                   maximum: 5
       responses:
-        200:
+        "200":
           description: Booking successful
 
   /hotel/reset:
     post:
       summary: Reset all rooms
       responses:
-        200:
+        "200":
           description: Reset completed
 
   /hotel/randomize:
     post:
       summary: Randomize occupancy
       responses:
-        200:
+        "200":
           description: Randomization completed
 
 components:
