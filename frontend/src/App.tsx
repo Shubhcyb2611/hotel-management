@@ -16,15 +16,27 @@ export default function App() {
   const [count, setCount] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRooms = async () => {
+const fetchRooms = async () => {
   try {
     setError(null);
+
     const res = await axios.get(`${API_URL}/hotel/rooms`);
-    setRooms(res.data);
+
+    // SAFETY CHECK
+    if (Array.isArray(res.data)) {
+      setRooms(res.data);
+    } else if (Array.isArray(res.data.data)) {
+      setRooms(res.data.data);
+    } else {
+      setRooms([]);
+    }
+
   } catch (err) {
-    setError("❌ Unable to fetch rooms. Is backend running?");
+    setError("Unable to fetch rooms. Is backend running?");
+    setRooms([]);
   }
 };
+
 
 
   useEffect(() => {
