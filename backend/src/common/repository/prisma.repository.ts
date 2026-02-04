@@ -12,8 +12,9 @@ export class PrismaRepository<T, CreateDTO = any, UpdateDTO = any> {
   async findMany(args?: Prisma.Args<T, 'findMany'>) {
     try {
       return await this.model.findMany(args);
-    } catch {
-      throw new InternalServerErrorException('Failed to fetch records');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -22,41 +23,45 @@ export class PrismaRepository<T, CreateDTO = any, UpdateDTO = any> {
       const result = await this.model.findUnique(args);
       if (!result) throw new NotFoundException('Record not found');
       return result;
-    } catch {
-      throw new InternalServerErrorException('Failed to fetch record');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
   async create(data: CreateDTO) {
     try {
       return await this.model.create({ data });
-    } catch {
-      throw new InternalServerErrorException('Failed to create record');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
   async update(where: any, data: UpdateDTO) {
     try {
       return await this.model.update({ where, data });
-    } catch {
-      throw new InternalServerErrorException('Failed to update record');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
-}
+  }
 
   async updateMany(where: any, data: any) {
     try {
       return await this.model.updateMany({ where, data });
-    } catch {
-      throw new InternalServerErrorException('DB updateMany failed');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
-
 
   async delete(where: any) {
     try {
       return await this.model.delete({ where });
-    } catch {
-      throw new InternalServerErrorException('Failed to delete record');
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
