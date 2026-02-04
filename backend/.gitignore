@@ -1,14 +1,14 @@
-node_modules
-# Keep environment variables out of version control
+# Node
+node_modules/
+backend/node_modules/
+
+# Build outputs
+dist/
+backend/dist/
+frontend/dist/
+
+# Environment
 .env
 
-/src/generated/prisma
-backend/node_modules
-
-
-backend/dist
-
-
-
-
-
+# Prisma generated
+src/generated/prisma
